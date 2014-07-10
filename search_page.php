@@ -230,7 +230,7 @@
 <div id="sectionNav"></div>
 <div id="body">
   
-  <h1>Zoekresultaat "<?php echo htmlentities($_GET['q']) ?>"</h1>
+  <h1>Zoekresultaat &ldquo;<?php echo htmlentities($_GET['q']) ?>&rdquo;</h1>
 
   <input type="hidden" id="search-query" value="<?php echo htmlentities($_GET['q']) ?>">
 
