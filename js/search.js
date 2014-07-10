@@ -4,20 +4,28 @@
  *  @author Thijs Vogels (info@tvogels.nl)
  */
 
-// Constants
-
-var MIN_LENGTH_FOR_SUGGESTIONS = 2,
-    ARROW_UP_KEY = 38,
-    ARROW_DOWN_KEY = 40,
-    ENTER_KEY = 13,
-    ELASTIC_SERVER = "http://77.169.186.211:29200",		//WE: remote testserver, use localhost:9200 voor local development (next line)
-//    ELASTIC_SERVER = "http://localhost:9200",
-    ELASTIC_INDEX = "hzbwnature";
 
 
 // On dom ready ...
 
 $(function() {
+
+  // Make settings object
+  var settings = $('#search-settings');
+  if (settings.length === 0) {
+    console.error('Settings div has to be included in the page!');
+  };
+  settings.get = function (key) {
+    return this.attr('data-'+key.replace(/\./g,'-'));
+  };
+
+  // Constants
+  var MIN_LENGTH_FOR_SUGGESTIONS = 2,
+    ARROW_UP_KEY = 38,
+    ARROW_DOWN_KEY = 40,
+    ENTER_KEY = 13,
+    ELASTIC_SERVER = settings.get('elastic.server'),
+    ELASTIC_INDEX = settings.get('elastic.index');
 
 
   // Get references to DOM elements

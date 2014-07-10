@@ -1,12 +1,17 @@
 <?php 
 
-  require 'vendor/autoload.php';
+  require_once 'vendor/autoload.php';
 
+  use Symfony\Component\Yaml\Yaml;
 
   // Define some constants
   define(ROOT_NODE, 'ROOT');
   define(SEARCH_CONTEXT_MIN_WEIGHT, 0.8);
 
+
+  // Load parameters from parameters.yml
+  $settings = Yaml::parse(file_get_contents(__DIR__ .'/parameters.yml'));
+  $parameters = $settings['parameters'];
 
 
   // Check if a query was given
@@ -16,16 +21,18 @@
   }
 
 
-
   // Create an ElasticSearch client
-  
-  $esclient = new Elasticsearch\Client();
+  $esclient = new Elasticsearch\Client(
+    array('hosts' => 
+      array($parameters['elastic.server'])
+    )
+  );
 
 
 
   // Retrieve all contexts 
   $contexts = $esclient->search(array(
-    'index' => 'hzbwnature',
+    'index' => $parameters['elastic.index'],
     'type' => 'context',
     'size' => 1000,
     'body' => array(

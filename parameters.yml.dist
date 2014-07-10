@@ -1,2 +1,3 @@
 parameters:
-  test:     hoi
+  elastic.server:   "http://77.169.186.211:29200"
+  elastic.index:    hzbwnature
