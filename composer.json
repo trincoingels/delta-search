@@ -1,16 +1,13 @@
 {
   "name": "HZ Search Method",
   "autoload": {
-    "psr-0": { "HZ\\Search": "src/"}
+    "psr-0": { "TV\\HZ\\Search": "src/"}
   },
   "require": {
     "elasticsearch/elasticsearch": "~1.0",
     "incenteev/composer-parameter-handler": "~2.0"
   },
   "scripts": {
-    "post-root-package-install": [
-      "SymfonyStandard\\Composer::hookRootPackageInstall"
-    ],
     "post-install-cmd": [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
     ],
