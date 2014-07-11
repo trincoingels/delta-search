@@ -48,7 +48,7 @@
   // Get search results
 
   $search_results = $esclient->search(array(
-    'index' => 'hzbwnature',
+    'index' => $parameters['elastic.index'],
     // 'type' => 'intentional_element',
     'size' => 100,
     'body' => array(
