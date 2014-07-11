@@ -1,3 +1,4 @@
 parameters:
   elastic.server:   "http://77.169.186.211:29200"
   elastic.index:    hzbwnature
+  index.url:        "http://wiki.local/index.php"

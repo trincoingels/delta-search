@@ -49,7 +49,7 @@
 
   $search_results = $esclient->search(array(
     'index' => 'hzbwnature',
-    'type' => 'intentional_element',
+    // 'type' => 'intentional_element',
     'size' => 100,
     'body' => array(
       'query' => array(
