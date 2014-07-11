@@ -248,7 +248,7 @@
       <ul class="search-results">
         <?php foreach($search_results as $result): ?>
         <a data-contexts="<?php echo implode(" ",$trace($result['_source']['context'][0])) ?>" href="<?php echo htmlentities(vn_url($result['_source'])) ?>"><li>
-          <h2><?php echo htmlentities($result['_source']['title']) ?></h2>
+          <h2><?php echo htmlentities(utf8_encode($result['_source']['title'])) ?></h2>
           <p>Context: <?php echo htmlentities($result['_source']['context_readable']) ?>
           <?php
             if (!$contextExists($result['_source']['context'][0])) {
