@@ -173,7 +173,7 @@ AutoComplete.prototype = {
       // enter
       e.preventDefault();
       if (this.currentSuggestion === -1) {
-        this.submitSearch();
+        this.submitSearch(e);
       } else {
         this.openSuggestion($(this.suggestions.find('li')[this.currentSuggestion]).attr('data-url'));
       }
