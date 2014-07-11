@@ -52,7 +52,7 @@ AutoComplete.prototype = {
   ARROW_DOWN_KEY: 40,
   ENTER_KEY: 13,
   // Elastic
-  ELASTIC_SERVER: window.settings.get('elastic.server'),
+  ELASTIC_SERVER: window.settings.get('elastic.server.js'),
   ELASTIC_INDEX: window.settings.get('elastic.index'),
   // Index URL
   INDEX_URL: window.settings.get('index.url'),
@@ -61,7 +61,8 @@ AutoComplete.prototype = {
   // Submit search
   submitSearch: function (e) {
     e.preventDefault();
-    document.location.href= this.INDEX_URL + '/Zoeken?q='+this.input.val()+'&fulltext=Search';
+    var fullurl = this.INDEX_URL + '/Zoeken?q='+this.input.val()+'&fulltext=Search';
+    document.location.href= fullurl;
   },
 
   // Open suggestion
