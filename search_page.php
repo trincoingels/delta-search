@@ -75,8 +75,8 @@
   // when a link is clicked (if available)
 
   function vn_url ($source) {
-    if (count($source['vn_pages'])>0)
-      return $source['vn_pages'][0];
+    if (count($source['suggest']['payload']['vn_pages'])>0)
+      return $source['suggest']['payload']['vn_pages'][0];
     else
       return $source['url'];   
   }
