@@ -70,6 +70,12 @@
   $search_results = $search_results['hits']['hits'];
 
 
+  // only take results with VN page
+  $search_results = array_filter($search_results, function ($res) {
+    return count($res['_source']['suggest']['payload']['vn_pages'])>0;
+  });
+
+
 
   // This helper returns the VN page that should be visited 
   // when a link is clicked (if available)
