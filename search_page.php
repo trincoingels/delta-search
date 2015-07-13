@@ -1,4 +1,4 @@
-<?php 
+<?php
 
   require_once 'vendor/autoload.php';
 
@@ -9,9 +9,12 @@
   define(SEARCH_CONTEXT_MIN_WEIGHT, 0.8);
 
 
+  // WME 13072015: disabled since this is already done in search_settings.php
+  // that one is currently always loaded before this one (see Deltaskin.skin.php)
+  
   // Load parameters from parameters.yml
-  $settings = Yaml::parse(file_get_contents(__DIR__ .'/parameters.yml'));
-  $parameters = $settings['parameters'];
+  //$settings = Yaml::parse(file_get_contents(__DIR__ .'/parameters.yml'));
+  //$parameters = $settings['parameters'];
 
 
   // Check if a query was given
@@ -23,14 +26,14 @@
 
   // Create an ElasticSearch client
   $esclient = new Elasticsearch\Client(
-    array('hosts' => 
+    array('hosts' =>
       array($parameters['elastic.server'])
     )
   );
 
 
 
-  // Retrieve all contexts 
+  // Retrieve all contexts
   $contexts = $esclient->search(array(
     'index' => $parameters['elastic.index'],
     'type' => 'context',
@@ -77,14 +80,14 @@
 
 
 
-  // This helper returns the VN page that should be visited 
+  // This helper returns the VN page that should be visited
   // when a link is clicked (if available)
 
   function vn_url ($source) {
     if (count($source['suggest']['payload']['vn_pages'])>0)
       return $source['suggest']['payload']['vn_pages'][0];
     else
-      return $source['url'];   
+      return $source['url'];
   }
 
 
@@ -93,7 +96,7 @@
   // Construct a data structure that will be used
   // to quickly find parent- and children nodes of the
   // context tree
-  // The data structures are two dictionaries: 
+  // The data structures are two dictionaries:
   // parents[url] = superurl, and
   // children[url] = [child,child,child]
 
@@ -124,11 +127,11 @@
   //     that is attached to all context for the current
   //     search, and define a function that adds weight
   //     to the nodes recursively.
-  
+
   $weights = array();
 
   $addWeight = function ($context_url, $weight_to_add) use (&$weights, $parents, &$addWeight, $contextExists) {
-    
+
     // we SKIP invalid contexts
     if ($context_url != ROOT_NODE && !$contextExists($context_url)) return;
 
@@ -208,7 +211,7 @@
     // we SKIP invalid contexts
     if ($context_url != ROOT_NODE && !$contextExists($context_url)) return array();
 
-    if ($context_url == ROOT_NODE) 
+    if ($context_url == ROOT_NODE)
       return array(md5(ROOT_NODE));
     else {
       $parent_trace = $trace($parents[$context_url]);
@@ -242,7 +245,7 @@
 ?>
 <div id="sectionNav"></div>
 <div id="body">
-  
+
   <h1>Zoekresultaat &ldquo;<?php echo htmlentities($_GET['q']) ?>&rdquo;</h1>
 
   <input type="hidden" id="search-query" value="<?php echo htmlentities($_GET['q']) ?>">
@@ -271,9 +274,9 @@
         <div>
           <p>Zoek specifieker in:</p>
           <h2>
-            <a 
-              data-count="<?php echo $urlCounts($search_context) ?>" 
-              data-context="<?php echo md5($search_context) ?>" 
+            <a
+              data-count="<?php echo $urlCounts($search_context) ?>"
+              data-context="<?php echo md5($search_context) ?>"
               data-context-name="<?php echo htmlentities($search_context_info['name']) ?>"
               href="<?php echo vn_url($search_context_info) ?>"
             >
@@ -284,9 +287,9 @@
             <?php foreach($children[$search_context] as $child): ?>
               <?php if ($urlCounts($child) > 0): ?>
               <li>
-                <a 
-                  data-count="<?php echo $urlCounts($child) ?>" 
-                  data-context="<?php echo md5($child) ?>" 
+                <a
+                  data-count="<?php echo $urlCounts($child) ?>"
+                  data-context="<?php echo md5($child) ?>"
                   data-context-name="<?php echo htmlentities($info[$child]['name']) ?>"
                   href="<?php echo vn_url($info[$child]) ?>"
                 >
