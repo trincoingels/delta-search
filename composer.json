@@ -14,7 +14,10 @@
     ],
     "post-update-cmd": [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-    ]
+    ],
+    "post-package-install": [
+            "/bin/install.sh"
+        ]
   },
   "extra": {
     "incenteev-parameters": {
